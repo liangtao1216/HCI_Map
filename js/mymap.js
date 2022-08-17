@@ -27,7 +27,7 @@ map.on('load', () => {
     // Population
     map.addSource('ct2020Pop', {
         'type': 'geojson',
-        'data': 'https://media.githubusercontent.com/media/liangtao1216/HCI_Map/main/ct2020Pop.geojson'
+        'data': 'https://media.githubusercontent.com/media/liangtao1216/HCI_Map/main/data/ct2020Pop.geojson'
     });
     map.addLayer({
         'id': 'Pop',
@@ -65,7 +65,7 @@ map.on('load', () => {
     // Ped and cyclist injured and death
     map.addSource('Crash', {
         'type': 'geojson',
-        'data': 'https://media.githubusercontent.com/media/liangtao1216/HCI_Map/main/PedCrash2022Geo.geojson'
+        'data': 'https://media.githubusercontent.com/media/liangtao1216/HCI_Map/main/data/PedCrash2022Geo.geojson'
     });
     map.addLayer({
         'id': 'Crash',
@@ -109,7 +109,7 @@ map.on('load', () => {
 
     map.addSource('HCI', {
         'type': 'geojson',
-        'data': 'https://media.githubusercontent.com/media/liangtao1216/HCI_Map/main/HCI_Corridor.geojson'
+        'data': 'https://media.githubusercontent.com/media/liangtao1216/HCI_Map/main/data/HCI_Corridor.geojson'
     });
 
     let index = 'HCI';
@@ -159,7 +159,7 @@ map.on('load', () => {
     // Vison Zero
     map.addSource('Vision_Zero', {
         'type': 'geojson',
-        'data': 'https://media.githubusercontent.com/media/liangtao1216/HCI_Map/main/VZV_Priority_Zones_or_Areas.geojson'
+        'data': 'https://media.githubusercontent.com/media/liangtao1216/HCI_Map/main/data/VZV_Priority_Zones_or_Areas.geojson'
     });
     map.addLayer({
         'id': 'Vision_Zero',
