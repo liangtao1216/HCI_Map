@@ -1,360 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>Demo: Show changes over time with Mapbox GL JS</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.js"></script>
-    <link
-      href="https://api.tiles.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.css"
-      rel="stylesheet"
-    />
-    <style>
-      body {
-        margin: 0;
-        padding: 0;
-        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      }
 
-      #map {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        width: 100%;
-      }
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-      h1 {
-        font-size: 20px;
-        line-height: 30px;
-      }
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
 
-      h2 {
-        font-size: 14px;
-        line-height: 20px;
-        margin-bottom: 10px;
-      }
-
-      a {
-        text-decoration: none;
-        color: #2dc4b2;
-      }
-
-      #console {
-        position: absolute;
-        margin: 10px;
-        width: 240px;
-        background-color: white;
-        padding: 10px 20px;
-      }
-
-      .session {
-        margin-bottom: 20px;
-      }
-
-      .row {
-        height: 12px;
-        width: 100%;
-      }
-
-      .colors {
-        background: linear-gradient(
-          to right,
-          #2dc4b2,
-          #3bb3c3,
-          #669ec4,
-          #8b88b6,
-          #a2719b,
-          #aa5e79
-        );
-        margin-bottom: 5px;
-      }
-
-      .label {
-        width: 15%;
-        display: inline-block;
-        text-align: center;
-      }
-    </style>
-
-    <style>
-      .legend {
-        background-color: #fff;
-        border-radius: 3px;
-        bottom: 30px;
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-        font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-        padding: 10px;
-        position: absolute;
-        right: 10px;
-        z-index: 1;
-    }
- 
-    .legend h4 {
-    margin: 0 0 10px;
-    }
- 
-    .legend div span {
-    border-radius: 50%;
-    display: inline-block;
-    height: 10px;
-    margin-right: 5px;
-    width: 10px;
-    }
-
-    </style>
-
-    <style>
-    #menu {
-        background: rgb(203, 203, 203);
-        opacity: 0.8;
-        position: absolute;
-        z-index: 1;
-        bottom: 50px;
-        left: 10px;
-        border-radius: 3px;
-        width: 120px;
-        border: 1px solid rgba(0, 0, 0, 0.4);
-        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    }
-    #menu a {
-        font-size: 14px;
-        color: #404040;
-        display: block;
-        margin: 0;
-        padding: 10px;
-        padding: 20px;
-        text-decoration: none;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.25);
-        text-align: center;
-    }
-
-    #menu a:last-child {
-        border: none;
-    }
-
-    #menu a:hover {
-        background-color: #f8f8f8;
-        color: #404040;
-    }
-
-    #menu a.active {
-        background-color: #ffffff;
-        color: #000000;
-    }
-
-    #menu a.active:hover {
-        background: #d5d5d5;
-    }
-
-    </style>
-   
-
-  </head>
-
-  <body>
-    <div id="map"></div>
-    <div id="console">
-        <h1>Motor vehicle collisions</h1>
-        <p>
-        Data:
-        <a
-        href="https://data.cityofnewyork.us/Public-Safety/NYPD-Motor-Vehicle-Collisions/h9gi-nx95"
-        >Motor vehicle collision injuries and death</a
-        >
-        in NYC, Jan 2016
-        </p>
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="./css/mystyle.css">
 
 
-      <div class="session">
-        <h2>Healthy Corridor Index</h2>
-        <div class="row" id="filters">
-          <input
-            id="all"
-            type="radio"
-            name="toggle"
-            value="all"
-            checked="checked"
-          />
-          <label for="all">All</label>
-          <input id="EL-Corridor" type="radio" name="toggle" value="EL-Corridor" />
-          <label for="EL-Corridor">EL-Corridor</label>
-        </div>
-      </div>
-    
+    <title>Healthy Corridor Index (HCI)</title>
+    <link rel="icon" href="./img/icon.png" type="image/png">
+</head>
 
-        <div class="session">
-            <nav id="menu"></nav>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top hideNavbar">
+            <!-- Logo -->
+            <a class="navbar-brand" id="logo" href="index.html">HCI</a>
+            <!-- Nav-->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="methods.html">Methods</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="map.html">Map</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">about</a>
+                    </li>
+
+                </ul>
+
+            </div>
+        </nav>
+
+    </header>
+
+
+    <main role="main">
+        <!--
+    ////////////////////////
+    /////////Video//////////
+    ////////////////////////
+    -->
+        <iframe width="420" height="345" id="myVideo" src="https://www.youtube.com/embed/IueL7QIoBEo?autoplay=1"
+            frameborder="0" allowfullscreen></iframe>
+
+        <div class="content">
+            <a href="map.html">
+                <div class="link">
+                    <h1>Healthy Corridor Index (HCI)</h1>
+                </div>
+            </a>
+            <p> what is Healthy Corridor Index?
+                <a href="methods.html" style="color:#499B8F">Learn about our methods.</a>
+            </p>
         </div>
 
-        <div class="menu" id="layers-control1"> </div>
-        <div class="menu" id="layers-control2"> </div>
-    </div>
-   
+        <!--
+    ////////////////////////
+    /////////FOOTER/////////
+    ////////////////////////
+    -->
+        <footer class="footer">
+            <p><span><img src="./img/nyc-dot-logo.png" width="50" alt="dot logo"></span>
+                © New York City Department of Transportation
+            </p>
+        </footer>
+    </main>
+
+    <!-- JavaScript -->
+    <script src="js/jquery-3.2.1.slim.min.js"></script>
+    <script src="./js/popper.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
 
 
-    <div id="state-legend" class="legend">
-        <h4>Healthy Corridor Index</h4>
-        <div><span style="background-color: #ff3d00"></span>Very Unhealthy</div>
-        <div><span style="background-color: #ffc300"></span>Unhealthy</div>
-        <div><span style="background-color: #e0e0e0"></span>Moderate</div>
-        <div><span style="background-color: #42c3ff"></span>Healthy</div>
-        <div><span style="background-color: #2979FF"></span>Very Healthy</div>
-    </div>
 
-    <script>
-      mapboxgl.accessToken = 'pk.eyJ1IjoibGlhbmd0YW8xMjE2IiwiYSI6ImNraWZ4cmVkYTA4ZmUycW10eGk3ZTFuajEifQ.sAZWQbIf5fYoDyAKBrIAFw';
-      const map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/dark-v9',
-        center: [-74.0059, 40.7128],
-        zoom: 11
-      });
+</body>
 
-      map.on('load', () => {
-        let filterCorridor = ['!=', ['number', ['get', 'ELSPACE']], 3];
-
-        map.addSource('HCI', {
-            'type': 'geojson',
-            'data': 'https://raw.githubusercontent.com/liangtao1216/HCI/main/HCI_Corridor.geojson'
-        });
-
-        map.addLayer({
-            'id': 'HCI',
-            'type': 'line',
-            'source': 'HCI',
-            'layout': {
-                'line-join': 'round',
-                'line-cap': 'round'
-            },
-            'paint': {
-                'line-color': {
-                    property: 'HCI_Class',
-                    type: 'categorical',
-                    stops: [
-                    ['very_unhealthy', '#ff3d00'],
-                    ['unhealthy', '#ffc300'],
-                    ['moderate', '#e0e0e0'],
-                    ['healthy', '#42c3ff'],
-                    ['very healthy', '#2979FF'],
-                    ]
-                    },
-                'line-width': {
-                    property: 'PopRank',
-                    type: 'categorical',
-                    stops: [
-                        [1, 1],
-                        [2, 3],
-                        [3, 5],
-                        [4, 6],
-                ]
-                },
-            
-            },
-            'filter': ['all', filterCorridor]
-            
-        });
-
-        map.on('click', 'HCI', function(e) {
-            new mapboxgl.Popup()
-            .setLngLat(e.lngLat)
-            .setHTML('<h3>'  + e.features[0].properties.Street + '</h3>'
-                +'<p>' + '<b>SegmentID:</b>' + e.features[0].properties.SegmentID + '</p>'
-                +'<p>' + '<b>EL-Space:</b>' + e.features[0].properties.ELSPACE + '</p>'
-                +'<p>' + '<b>Population:</b>' + e.features[0].properties.TotalPopulation + '</p>'
-                +'<p>' + '<b>HCI_Class:</b>' + e.features[0].properties.HCI_Class + '</p>'
-                +'<p>' + '<b>HCI:</b> ' + e.features[0].properties.HCI + '</p>'
-            )
-            .addTo(map);
-            });
-
-        
-        // Vison Zero
-        map.addSource('Vison_Zero', {
-            'type': 'geojson',
-            'data': 'https://raw.githubusercontent.com/liangtao1216/HCI/main/VZV_Priority_Zones_or_Areas.geojson'
-        });
-        map.addLayer({
-            'id': 'Vison_Zero',
-            'type': 'fill',
-            'source': 'Vison_Zero',
-            'layout': {},
-            'paint': {
-                'fill-color': '#ffffff',
-                'fill-opacity': 0.3
-            }
-        });
-
-       // filter corridor type
-        document
-          .getElementById('filters')
-          .addEventListener('change', (event) => {
-            const Corridor = event.target.value;
-            // update the map filter
-            if (Corridor  === 'all') {
-                filterCorridor = ['!=', ['number', ['get', 'ELSPACE']], 3];
-            } else if (Corridor  === 'EL-Corridor') {
-                filterCorridor = ['==', ['number', ['get', 'ELSPACE']], 1];
-            } else {
-              console.error('error');
-            }
-            map.setFilter('HCI', ['all',filterCorridor]);
-          });
-      });
-
-              // layer selection
-        // After the last frame rendered before the map enters an "idle" state.
-        map.on('idle', () => {
-            // If these two layers were not added to the map, abort
-            if (!map.getLayer('HCI') || !map.getLayer('Vison_Zero')) {
-                return;
-            }
-
-            // Enumerate ids of the layers.
-            const toggleableLayerIds = ['HCI', 'Vison_Zero'];
-
-            // Set up the corresponding toggle button for each layer.
-            for (const id of toggleableLayerIds) {
-                // Skip layers that already have a button set up.
-                if (document.getElementById(id)) {
-                    continue;
-                }
-
-                // Create a link.
-                const link = document.createElement('a');
-                link.id = id;
-                link.href = '#';
-                link.textContent = id;
-                link.className = 'active';
-
-                // Show or hide layer when the toggle is clicked.
-                link.onclick = function (e) {
-                    const clickedLayer = this.textContent;
-                    e.preventDefault();
-                    e.stopPropagation();
-
-                    const visibility = map.getLayoutProperty(
-                        clickedLayer,
-                        'visibility'
-                    );
-
-                    // Toggle layer visibility by changing the layout object's visibility property.
-                    if (visibility === 'visible') {
-                        map.setLayoutProperty(clickedLayer, 'visibility', 'none');
-                        this.className = '';
-                    } else {
-                        this.className = 'active';
-                        map.setLayoutProperty(
-                            clickedLayer,
-                            'visibility',
-                            'visible'
-                        );
-                    }
-                };
-
-                const layers = document.getElementById('menu');
-                layers.appendChild(link);
-            }
-        });
-    </script>
-  </body>
 </html>
