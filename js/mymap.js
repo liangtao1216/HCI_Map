@@ -55,7 +55,42 @@ map.on('load', () => {
                 200,
                 '#212121',
             ],
-            'fill-opacity': 0.8
+            'fill-opacity': 0.9
+        },
+    });
+
+    // Covid-19 death rate
+    map.addSource('Covid-19', {
+        'type': 'geojson',
+        'data': 'https://media.githubusercontent.com/media/liangtao1216/HCI_Map/main/data/covid19MODZCTA.geojson'
+    });
+    map.addLayer({
+        'id': 'Covid-19-DeathRate',
+        'type': 'fill',
+        'source': 'Covid-19',
+        'layout': {
+            'visibility': 'none',
+        },
+        'paint': {
+            'fill-color': [
+                'interpolate',
+                ['linear'],
+                ['get', 'COVID_DEATH_RATE'],
+
+                0,
+                '#D7CCC8',
+                300,
+                '#BCAAA4',
+                400,
+                '#A1887F',
+                500,
+                '#795548',
+                600,
+                '#5D4037',
+                700,
+                '#3E2723',
+            ],
+            'fill-opacity': 0.9
         },
     });
 
@@ -80,9 +115,9 @@ map.on('load', () => {
                 ['linear'],
                 ['number', ['get', 'PedCrash']],
                 1,
-                2,
+                4,
                 5,
-                10
+                24
             ],
             'circle-color': [
                 'interpolate',
@@ -138,8 +173,8 @@ map.on('load', () => {
                 property: 'Carto_Disp',
                 type: 'categorical',
                 stops: [
-                    [10, 6],
-                    [20, 4],
+                    [10, 4],
+                    [20, 3],
                     [30, 2],]
             },
             'line-opacity': {
@@ -376,8 +411,9 @@ $("#mySwitch1").on('change', function () {
 var layers1 = [
     ['HCI', 'HCI'],
     ['Vision_Zero', 'Vision-Zero Area'],
-    ['Crash', 'Ped Crash'],
-    ['Pop', 'Population']
+    ['Crash', 'Pedestrians Crashes'],
+    ['Pop', 'Population'],
+    ['Covid-19-DeathRate', 'Covid-19 Death Rate']
 ];
 
 
@@ -409,12 +445,12 @@ map.on('load', function () {
         } else {
             $("#legend-1").hide();
         }
-        if (map.getLayoutProperty('Q3_Average', 'visibility') == 'visible') {
+        if (map.getLayoutProperty('Covid-19-DeathRate', 'visibility') == 'visible') {
             $("#legend-2").show();
         } else {
             $("#legend-2").hide();
         }
-        if (map.getLayoutProperty('Q4_Average', 'visibility') == 'visible') {
+        if (map.getLayoutProperty('Crash', 'visibility') == 'visible') {
             $("#legend-3").show();
         } else {
             $("#legend-3").hide();
