@@ -433,7 +433,7 @@ var layers1 = [
     ['EL_Infrastructure', 'EL_Infrastructure'],
     ['Vision_Zero', 'Vision-Zero Area'],
     ['Crash', 'Pedestrians Crashes'],
-    ['Pop', 'Population'],
+    ['Pop', 'Population Density'],
     ['Covid-19-DeathRate', 'Covid-19 Death Rate']
 ];
 
