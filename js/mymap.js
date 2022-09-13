@@ -191,6 +191,26 @@ map.on('load', () => {
         //'filter': ['all', filterCorridor]
 
     });
+
+    // EL Infrastructure
+    map.addSource('EL_Infrastructure', {
+        'type': 'geojson',
+        'data': 'https://media.githubusercontent.com/media/liangtao1216/HCI_Map/main/data/EL_Infrastructure.geojson'
+    });
+    map.addLayer({
+        'id': 'EL_Infrastructure',
+        'type': 'fill',
+        'source': 'EL_Infrastructure',
+        'layout': {
+            'visibility': 'none',
+        },
+        'paint': {
+            'fill-color': '#7B1FA2',
+            'fill-opacity': 0.8
+        }
+    });
+
+
     // Vison Zero
     map.addSource('Vision_Zero', {
         'type': 'geojson',
@@ -410,6 +430,7 @@ $("#mySwitch1").on('change', function () {
 
 var layers1 = [
     ['HCI', 'HCI'],
+    ['EL_Infrastructure', 'EL_Infrastructure'],
     ['Vision_Zero', 'Vision-Zero Area'],
     ['Crash', 'Pedestrians Crashes'],
     ['Pop', 'Population'],
@@ -455,7 +476,7 @@ map.on('load', function () {
         } else {
             $("#legend-3").hide();
         }
-        if (map.getLayoutProperty('Q5_Average', 'visibility') == 'visible') {
+        if (map.getLayoutProperty('EL_Infrastructure', 'visibility') == 'visible') {
             $("#legend-4").show();
         } else {
             $("#legend-4").hide();
