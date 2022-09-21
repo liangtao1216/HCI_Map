@@ -162,11 +162,11 @@ map.on('load', () => {
                 property: index,
                 type: 'interval',
                 stops: [
-                    [20, '#ff3d00'],
-                    [40, '#ffc300'],
-                    [60, '#e0e0e0'],
-                    [80, '#42c3ff'],
-                    [100, '#2979FF'],
+                    [0, '#ff3d00'],
+                    [20, '#ffc300'],
+                    [40, '#e0e0e0'],
+                    [60, '#42c3ff'],
+                    [80, '#2979FF'],
                 ]
             },
             'line-width': {
@@ -244,7 +244,7 @@ map.on('click', 'HCI', function (e) {
         className: 'popupWindow'
     })
         .setLngLat(e.lngLat)
-        .setHTML('<h4>' + e.features[0].properties.Street
+        .setHTML('<h5>' + e.features[0].properties.Street
             + '<br>' + '-----------------------' +
             '</h4>'
 
@@ -313,11 +313,11 @@ document
             property: index,
             type: 'interval',
             stops: [
-                [20, '#ff3d00'],
-                [40, '#ffc300'],
-                [60, '#e0e0e0'],
-                [80, '#42c3ff'],
-                [100, '#2979FF'],
+                [0, '#ff3d00'],
+                [20, '#ffc300'],
+                [40, '#e0e0e0'],
+                [60, '#42c3ff'],
+                [80, '#2979FF'],
 
             ]
         }
