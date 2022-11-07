@@ -20,83 +20,6 @@ $("#legend-4").hide();
 //////////////////////// 
 map.on('load', () => {
 
-
-
-
-
-    // Population
-    map.addSource('ct2020Pop', {
-        'type': 'geojson',
-        'data': 'https://media.githubusercontent.com/media/liangtao1216/HCI_Map/main/data/ct2020Pop.geojson'
-    });
-    map.addLayer({
-        'id': 'Pop',
-        'type': 'fill',
-        'source': 'ct2020Pop',
-        'layout': {
-            'visibility': 'none',
-        },
-        'paint': {
-            'fill-color': [
-                'interpolate',
-                ['linear'],
-                ['get', 'PopDen'],
-
-                0,
-                '#BDBDBD',
-                25,
-                '#9E9E9E',
-                50,
-                '#757575',
-                100,
-                '#616161',
-                150,
-                '#424242',
-                200,
-                '#212121',
-            ],
-            'fill-opacity': 0.9
-        },
-    });
-
-    // Covid-19 death rate
-    map.addSource('Covid-19', {
-        'type': 'geojson',
-        'data': 'https://media.githubusercontent.com/media/liangtao1216/HCI_Map/main/data/covid19MODZCTA.geojson'
-    });
-    map.addLayer({
-        'id': 'Covid-19-DeathRate',
-        'type': 'fill',
-        'source': 'Covid-19',
-        'layout': {
-            'visibility': 'none',
-        },
-        'paint': {
-            'fill-color': [
-                'interpolate',
-                ['linear'],
-                ['get', 'COVID_DEATH_RATE'],
-
-                0,
-                '#D7CCC8',
-                300,
-                '#BCAAA4',
-                400,
-                '#A1887F',
-                500,
-                '#795548',
-                600,
-                '#5D4037',
-                700,
-                '#3E2723',
-            ],
-            'fill-opacity': 0.9
-        },
-    });
-
-
-
-
     // Ped and cyclist injured and death
     map.addSource('Crash', {
         'type': 'geojson',
@@ -140,18 +63,19 @@ map.on('load', () => {
         }
     });
 
-    // Healthy Corridor Index
 
-    map.addSource('HCI', {
+
+    // CITI BIKE SAMPLE DATA
+
+    map.addSource('BIKE', {
         'type': 'geojson',
-        'data': 'https://media.githubusercontent.com/media/liangtao1216/HCI_Map/main/data/HCI_Corridor.geojson'
+        'data': 'https://media.githubusercontent.com/media/liangtao1216/HCI_Map/main/data/Bike_Sample_Geo.geojson'
     });
 
-    let index = 'HCI';
     map.addLayer({
-        'id': 'HCI',
+        'id': 'BIKE',
         'type': 'line',
-        'source': 'HCI',
+        'source': 'BIKE',
         'layout': {
             'line-join': 'round',
             'line-cap': 'round',
@@ -159,55 +83,28 @@ map.on('load', () => {
         },
         'paint': {
             'line-color': {
-                property: index,
+                property: 'Flow_Median',
                 type: 'interval',
                 stops: [
-                    [0, '#ff3d00'],
-                    [20, '#ffc300'],
-                    [40, '#e0e0e0'],
-                    [60, '#42c3ff'],
-                    [80, '#2979FF'],
+                    [2, '#2979FF'],
+                    [14, '#42c3ff'],
+                    [41, '#e0e0e0'],
+                    [108, '#ffc300'],
+                    [307, '#ff3d00'],
                 ]
             },
+
             'line-width': {
-                property: 'Carto_Disp',
+                property: 'With_BikeLane',
                 type: 'categorical',
                 stops: [
-                    [10, 4],
-                    [20, 3],
-                    [30, 2],]
+                    [0, 1],
+                    [1, 3]]
             },
-            'line-opacity': {
-                property: 'Carto_Disp',
-                type: 'categorical',
-                stops: [
-                    [0, 0.4],
-                    [10, 0.9],
-                    [20, 0.9],
-                    [30, 0.9],]
-            }
 
         },
         //'filter': ['all', filterCorridor]
 
-    });
-
-    // EL Infrastructure
-    map.addSource('EL_Infrastructure', {
-        'type': 'geojson',
-        'data': 'https://media.githubusercontent.com/media/liangtao1216/HCI_Map/main/data/EL_Infrastructure.geojson'
-    });
-    map.addLayer({
-        'id': 'EL_Infrastructure',
-        'type': 'fill',
-        'source': 'EL_Infrastructure',
-        'layout': {
-            'visibility': 'none',
-        },
-        'paint': {
-            'fill-color': '#7B1FA2',
-            'fill-opacity': 0.8
-        }
     });
 
 
@@ -235,7 +132,7 @@ map.on('load', () => {
 //////////////////////// 
 
 
-map.on('click', 'HCI', function (e) {
+map.on('click', 'BIKE', function (e) {
     new mapboxgl.Popup({
         closeButton: true,
         closeOnClick: true,
@@ -249,14 +146,9 @@ map.on('click', 'HCI', function (e) {
             '</h4>'
 
             + '<p>' + '<b>SegmentID:</b>' + e.features[0].properties.SegmentID + '</p>'
-            + '<p>' + '<b>EL-Space:</b>' + e.features[0].properties.ELSPACE + '</p>'
-            + '<p>' + '<b>Population:</b>' + e.features[0].properties.TotalPopulation + '</p>'
-            + '<p>' + '<b>HCI:</b> ' + e.features[0].properties.HCI + '</p>'
-            + '<p>' + '<b>Socio-economic:</b> ' + e.features[0].properties.SE + '</p>'
-            + '<p>' + '<b>Education:</b> ' + e.features[0].properties.E + '</p>'
-            + '<p>' + '<b>Natural Environment:</b> ' + e.features[0].properties.NE + '</p>'
-            + '<p>' + '<b>Neighborhood:</b> ' + e.features[0].properties.N + '</p>'
-            + '<p>' + '<b>Transportation:</b> ' + e.features[0].properties.T + '</p>'
+            + '<p>' + '<b>BikeLane:</b> ' + e.features[0].properties.With_BikeLane + '</p>'
+            + '<p>' + '<b>Protected Bike Lane:</b> ' + e.features[0].properties.Protected_Lane + '</p>'
+            + '<p>' + '<b>Citi Bike Daily Trips:</b> ' + e.features[0].properties.Flow_Median + '</p>'
         )
         .addTo(map);
 });
@@ -327,101 +219,23 @@ document
 
 
 //////////////////////
-//switch to el-space
+//switch to Bike Lane
 ////////////////////// 
 
 $("#mySwitch1").on('change', function () {
-    let filterCorridor = ['!=', ['number', ['get', 'ELSPACE']], 3];
+    let filterCorridor = ['!=', ['number', ['get', 'With_BikeLane']], 3];
 
     mySwitch1 = !mySwitch1;
     if (mySwitch1) {
-        filterCorridor = ['!=', ['number', ['get', 'ELSPACE']], 3];
+        filterCorridor = ['!=', ['number', ['get', 'With_BikeLane']], 3];
     } //end of if mySwitch
 
     else {
-        filterCorridor = ['==', ['number', ['get', 'ELSPACE']], 1];
+        filterCorridor = ['==', ['number', ['get', 'With_BikeLane']], 1];
     }
-    map.setFilter('HCI', ['all', filterCorridor]);
+    map.setFilter('BIKE', ['all', filterCorridor]);
 });
 
-
-//////////////////////
-//switch to line-width change
-////////////////////// 
-
-// $("#mySwitch2").on('change', function () {
-
-//     mySwitch2 = !mySwitch2;
-//     let CustomWidth = {
-//         property: 'Carto_Disp',
-//         type: 'categorical',
-//         stops: [
-//             [10, 6],
-//             [20, 4],
-//             [30, 2],
-//             [0, 1]
-//         ]
-//     }
-//     let CustomOpacity = {
-//         property: 'Carto_Disp',
-//         type: 'categorical',
-//         stops: [
-//             [0, 0.5],
-//             [10, 0.9],
-//             [20, 0.9],
-//             [30, 0.9],]
-//     }
-
-//     if (mySwitch2) {
-//         CustomWidth = {
-//             property: 'Carto_Disp',
-//             type: 'categorical',
-//             stops: [
-//                 [10, 6],
-//                 [20, 4],
-//                 [30, 2],
-//                 [0, 1]
-//             ]
-//         }
-//         CustomOpacity = {
-//             property: 'Carto_Disp',
-//             type: 'categorical',
-//             stops: [
-//                 [0, 0.5],
-//                 [10, 0.9],
-//                 [20, 0.9],
-//                 [30, 1],]
-//         }
-
-//     } //end of if mySwitch
-
-//     else {
-//         CustomWidth = {
-//             property: 'PopRank',
-//             type: 'interval',
-//             stops: [
-//                 [0, 1],
-//                 [25, 1],
-//                 [50, 3],
-//                 [75, 20],
-//             ]
-//         }
-//         CustomOpacity = {
-//             property: 'PopRank',
-//             type: 'interval',
-//             stops: [
-//                 [0, 1]
-//                 [25, 1],
-//                 [50, 1],
-//                 [75, 1],
-//             ]
-//         }
-
-//    }
-//     map.setPaintProperty('HCI', 'line-width', CustomWidth);
-//     map.setPaintProperty('HCI', 'line-opacity', CustomOpacity);
-
-// });
 
 
 //////////////////////
@@ -429,12 +243,9 @@ $("#mySwitch1").on('change', function () {
 ////////////////////// 
 
 var layers1 = [
-    ['HCI', 'HCI'],
-    ['EL_Infrastructure', 'EL_Infrastructure'],
+    ['BIKE', 'BIKE'],
     ['Vision_Zero', 'Vision-Zero Area'],
     ['Crash', 'Pedestrians Crashes'],
-    ['Pop', 'Population Density'],
-    ['Covid-19-DeathRate', 'Covid-19 Death Rate']
 ];
 
 

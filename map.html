@@ -25,15 +25,15 @@
         href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css"
         type="text/css">
 
-    <title>NYC Healthy Corridor Index</title>
-    <link rel="icon" type="image/png" href="img/icon.png">
+    <title>Citi Bike Trips Prediction</title>
+
 </head>
 
 <body>
     <header>
         <nav class="navbar navbar-expand-md navbar-dark fixed-top hideNavbar">
             <!-- Logo -->
-            <a class="navbar-brand" id="logo" href="index.html">HCI</a>
+            <a class="navbar-brand" id="logo" href="index.html">Citi Bike Trips Prediction</a>
             <!-- Nav-->
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -41,15 +41,11 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="methods.html">Methods</a>
-                    </li>
+
                     <li class="nav-item active">
                         <a class="nav-link" href="map.html">Map</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="about.html">about</a>
-                    </li>
+
 
                 </ul>
 
@@ -68,7 +64,7 @@
         <div id="dropdown">
             <div class="row">
                 <select id="selectIndex">
-                    <option value="hci">HCI</option>
+                    <option value="hci">Citi Bike Sample Data</option>
                     <option value="se">Social & Economic</option>
                     <option value="e">Education</option>
                     <option value="ne">Natural Environment</option>
@@ -88,7 +84,7 @@
             <div id="visLayers" class="row">
                 <label id="mySwitch1" class="switch">
                     <input class="switch-input" type="checkbox" />
-                    <span class="switch-label" data-on="EL-Corridor" data-off="All Corridor"></span>
+                    <span class="switch-label" data-on="Bike Lane" data-off="All Segement"></span>
                     <span class="switch-handle"></span>
                 </label>
                 <i class="fa fa-question-circle popup" style="font-size:25px;color:grey"
@@ -130,15 +126,14 @@
         <div class="legend">
             <div id='score-legend'>
                 <h4><u>Healthy Corridor Index</u></h4>
-                <div><span style="background-color: #ff3d00"></span>Very Unhealthy (0-20)</div>
-                <div><span style="background-color: #ffc300"></span>Unhealthy (20-40)</div>
-                <div><span style="background-color: #e0e0e0"></span>Moderate (40-60)</div>
-                <div><span style="background-color: #42c3ff"></span>Healthy (60-80)</div>
-                <div><span style="background-color: #2979FF"></span>Very Healthy (80-100)</div>
+
+                <div><span style="background-color: #ff3d00"></span> 307-2142 </div>
+                <div><span style="background-color: #ffc300"></span> 108-307 </div>
+                <div><span style="background-color: #e0e0e0"></span> 41-108 </div>
+                <div><span style="background-color: #42c3ff"></span> 14-41 </div>
+                <div><span style="background-color: #2979FF"></span> 2-14</div>
                 <p></p>
-                <div style="font-size:12px">Line Width: Cartographic Display Level </div>
-                <div style="font-size:10px">City: 4px &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Borough: 3px</div>
-                <div style="font-size:10px">Neighborhood: 2px &nbsp;&emsp; Other: 1px</div>
+                <div style="font-size:14px">Unit: Trips/Daily</div>
             </div>
 
             <p></p>
