@@ -2,7 +2,7 @@
 ////////////////////////
 //initiate mapbox
 ////////////////////////
-mapboxgl.accessToken = 'pk.eyJ1IjoibGlhbmd0YW8xMjE2IiwiYSI6ImNtYTJxdDBtbTJvenAybHEwMGw4cWFreWEifQ._I-UkHm7JeVP2zsjGC3aGA';
+mapboxgl.accessToken = 'pk.eyJ1IjoibGlhbmd0YW8xMjE2IiwiYSI6ImNtYTJzbG00NjA1dmIya3EwbjY4dXRoZnIifQ.XDhU5vGFioqa2cFNc_3D8A';
 const map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/dark-v9',
